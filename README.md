@@ -1,6 +1,6 @@
-# Public Skating Scheduler
+# Add Public Skate Schedule to Google Calendar
 
-This project is a command-line application that allows users to automatically add public skating events from a shared Google Calendar to their personal Google Calendar.
+This project is a command-line application that allows users to automatically add only the public skating events from the Pegula Ice Rink Calendar to their personal Google Calendar.
 
 ## Features
 
