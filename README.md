@@ -1,6 +1,6 @@
 # Add Public Skate Schedule to Google Calendar
 
-This project is a command-line application that allows users to automatically add only the public skating events from the Pegula Ice Rink Calendar to their personal Google Calendar.
+This project is a command-line application that allows users to automatically add only the public skating events from the Pegula Ice Rink calendar to their personal Google calendar.
 
 ## Features
 
@@ -53,8 +53,8 @@ This project is a command-line application that allows users to automatically ad
 
 2. **Input Calendar IDs**
 
-   - When prompted, enter the public skating calendar ID. This can be found on the Pegula website by navigating to `Calendar`, performing a search, then clicking the Google icon next to `Sync Pegula Ice Arena Calendar`. Example: `qq3p7mn8h8dtn10dlaphfrkoaam5sh8p@import.calendar.google.com`
-   - Enter your Google Calendar ID where the events will be added. Example: `your-calendar-id@group.calendar.google.com`
+   - When prompted, enter the public skating calendar ID. This can be found on the Pegula website by navigating to `Calendar`, performing a search, then clicking the Google icon next to `Sync Pegula Ice Arena Calendar`. DO NOT add this to your calendar or it will add every event from Pegula. Simply copy the pop-up link and enter it into the command line. Example: `qq3p7mn8h8dtn10dlaphfrkoaam5sh8p@import.calendar.google.com`
+   - Enter your Google Calendar ID where the events will be added. This can be found by clicking the 3 dots next to your calendar, then `Settings and share`. Scroll down, and you will find it under `Integrate Calendar`. Example: `your-calendar-id@group.calendar.google.com`
 
 3. **Authorize the Application**
 
