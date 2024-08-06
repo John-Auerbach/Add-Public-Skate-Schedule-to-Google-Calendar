@@ -5,6 +5,7 @@ from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 from googleapiclient.discovery import build
+from datetime import datetime, timedelta
 
 # If modifying these SCOPES, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/calendar']
@@ -61,6 +62,25 @@ def insert_event_into_calendar(service, calendar_id, event):
     }
     service.events().insert(calendarId=calendar_id, body=event_body).execute()
 
+def event_exists(service, calendar_id, event):
+    """Check if an event already exists in the user's calendar on the same day."""
+    start_of_day = datetime(event['start'].year, event['start'].month, event['start'].day, 0, 0, 0)
+    end_of_day = start_of_day + timedelta(days=1)
+
+    events_result = service.events().list(
+        calendarId=calendar_id,
+        timeMin=start_of_day.isoformat() + 'Z',
+        timeMax=end_of_day.isoformat() + 'Z',
+        singleEvents=True,
+        orderBy='startTime'
+    ).execute()
+
+    events = events_result.get('items', [])
+    for existing_event in events:
+        if 'summary' in existing_event and "public skating" in existing_event['summary'].lower():
+            return True
+    return False
+
 def main():
     # Ask the user for inputs
     public_skating_calendar_id = input("Enter the Pegula skating calendar ID: ").strip()
@@ -70,10 +90,13 @@ def main():
     events = get_public_skating_events(public_skating_calendar_id)
 
     for event in events:
-        print(f"Inserting event: {event['summary']}")
-        insert_event_into_calendar(service, user_calendar_id, event)
+        if not event_exists(service, user_calendar_id, event):
+            print(f"Inserting event: {event['summary']}")
+            insert_event_into_calendar(service, user_calendar_id, event)
+        else:
+            print(f"Event already exists: {event['summary']}")
 
-    print("All events have been inserted.")
+    print("All events have been processed.")
 
 if __name__ == '__main__':
     main()
