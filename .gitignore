@@ -1,6 +1,5 @@
 credentials.json
 token.json
-"config.py" 
-"config.py" 
--e "\n__pycache__/\n*.pyc" 
--e "\n__pycache__/\n*.pyc" 
+config.py
+__pycache__/
+*.pyc
