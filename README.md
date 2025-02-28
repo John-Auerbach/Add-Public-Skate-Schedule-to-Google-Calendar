@@ -117,13 +117,3 @@ After running the script, open **Google Calendar** and check if public skate ses
 ### **Google API Quota Limits**
 - If your script runs too frequently, Google might limit API requests.
 - Reduce frequency in Task Scheduler/Cron.
-
----
-
-## **Contributing**
-Feel free to fork the repository and submit pull requests!
-
----
-
-## **License**
-This project is licensed under the **MIT License**.
