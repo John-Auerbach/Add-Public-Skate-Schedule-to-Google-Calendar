@@ -1,1 +1,0 @@
-USER_CALENDAR_ID = "3487f4059172f1585bc9700dc6e7757a41736950a15bd60c7be91f5c0591d65e@group.calendar.google.com"
