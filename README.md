@@ -19,18 +19,18 @@ This project is a command-line application that automatically adds **public skat
 ---
 
 ## **Installation & Setup**
-### **1️⃣ Clone the Repository**
+### **1 Clone the Repository**
 ```bash
 git clone https://github.com/John-Auerbach/Add-Public-Skate-Schedule-to-Google-Calendar
 cd Add-Public-Skate-Schedule-to-Google-Calendar
 ```
 
-### **2️⃣ Install Dependencies**
+### **2 Install Dependencies**
 ```bash
 pip install -r requirements.txt
 ```
 
-### **3️⃣ Set Up Google Cloud API**
+### **3 Set Up Google Cloud API**
 1. Go to the [Google Cloud Console](https://console.cloud.google.com/).
 2. Create a **new project**.
 3. **Enable the Google Calendar API** for your project.
@@ -44,7 +44,7 @@ pip install -r requirements.txt
 ---
 
 ## **Configuration**
-### **4️⃣ Create `config.py` for Your Calendar ID**
+### **4 Create `config.py` for Your Calendar ID**
 For security, we store the user's calendar ID in `config.py`, which is **not tracked by Git**.
 
 1. Create a new file named **`config.py`** in the project folder.
@@ -68,7 +68,7 @@ For security, we store the user's calendar ID in `config.py`, which is **not tra
 ---
 
 ## **Usage**
-### **5️⃣ Run Manually**
+### **5 Run Manually**
 ```bash
 python auto-add-public-skate.py
 ```
@@ -77,7 +77,7 @@ python auto-add-public-skate.py
 - It will **fetch public skating events** from Pegula’s calendar.
 - It will **add missing events** to your Google Calendar.
 
-### **6️⃣ Running Automatically**
+### **6 Running Automatically**
 You can schedule the script to run periodically.
 
 #### **Windows (Task Scheduler)**
