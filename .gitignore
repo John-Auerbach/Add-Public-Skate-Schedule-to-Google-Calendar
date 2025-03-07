@@ -3,3 +3,4 @@ token.json
 config.py
 __pycache__/
 *.pyc
+replacements.txt

@@ -5,7 +5,7 @@ from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 from googleapiclient.discovery import build
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 # Import user calendar ID from config.py
 from config import USER_CALENDAR_ID
@@ -64,24 +64,35 @@ def insert_event_into_calendar(service, event):
 
 def event_exists(service, event):
     # Check if event already exists in the user's calendar on the same day
-    start_of_day = datetime(event['start'].year, event['start'].month, event['start'].day, 0, 0, 0)
+    candidate_start = event['start']
+    candidate_summary = event['summary'].lower()
+    # Ensure candidate_start is timezone-aware in UTC
+    if candidate_start.tzinfo is None:
+        candidate_start = candidate_start.replace(tzinfo=timezone.utc)
+    else:
+        candidate_start = candidate_start.astimezone(timezone.utc)
+        
+    # Define the start and end of the day for the candidate event in UTC
+    start_of_day = candidate_start.replace(hour=0, minute=0, second=0, microsecond=0)
     end_of_day = start_of_day + timedelta(days=1)
 
     events_result = service.events().list(
         calendarId=USER_CALENDAR_ID,
-        timeMin=start_of_day.isoformat() + 'Z',
-        timeMax=end_of_day.isoformat() + 'Z',
+        timeMin=start_of_day.isoformat().replace('+00:00', 'Z'),
+        timeMax=end_of_day.isoformat().replace('+00:00', 'Z'),
         singleEvents=True,
         orderBy='startTime'
     ).execute()
 
     events = events_result.get('items', [])
     for existing_event in events:
-        if 'summary' in existing_event and any(
-            keyword in existing_event['summary'].lower() for keyword in 
-            ["public skating", "public skate", "adult open skate", "aspire freestyle"]
-        ):
-            return True
+        if 'summary' in existing_event:
+            existing_summary = existing_event['summary'].lower()
+            existing_start_str = existing_event['start'].get('dateTime')
+            if existing_start_str:
+                existing_start = datetime.fromisoformat(existing_start_str.replace('Z', '+00:00'))
+                if candidate_summary == existing_summary and candidate_start == existing_start:
+                    return True
     return False
 
 def main():
